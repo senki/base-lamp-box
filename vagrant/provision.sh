@@ -52,6 +52,8 @@ main() {
     do_config_network
     echo -n "==> " >> $PROVISION_LOG 2>&1
     updatedb >> $PROVISION_LOG 2>&1
+    find /vagrant/vagrant/db -type f \( ! -iname "*.gitignore" \) -mtime +7 -delete
+    find /vagrant/vagrant/log -type f \( ! -iname "*.gitignore" \) -mtime +7 -delete
     echo "All done"
     echo "==> Project provisioning done at: $(date)" >> $PROVISION_LOG 2>&1
     cp $PROVISION_LOG /vagrant/vagrant/log/$HOST_NAME-$NOW.log
