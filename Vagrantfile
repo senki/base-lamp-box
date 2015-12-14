@@ -25,4 +25,7 @@ Vagrant.configure(2) do |config|
         owner: "www-data",
         group: "www-data",
         mount_options: ["dmode=775,fmode=664"]
+    config.vm.provider "virtualbox" do |v|
+      v.name = config.vm.hostname
+    end
 end

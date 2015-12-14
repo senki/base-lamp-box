@@ -12,7 +12,6 @@ set -e
 
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 HOST_NAME="boilerplate.local"
-HOST_CONFIG="/etc/hosts"
 PROVISION_LOG="/var/log/project-provision.log"
 
 do_update() {
@@ -27,16 +26,16 @@ do_update() {
     touch /var/provision/update
 }
 
-do_network() {
-    if [[ -f "/var/provision/network" ]]; then
+do_config_network() {
+    if [[ -f "/var/provision/config-network" ]]; then
         echo "Skipping: Hostname already confugured" | tee -a $PROVISION_LOG
         return
     fi
     echo "Configuring hostname..."  | tee -a $PROVISION_LOG
     IPADDR=$(/sbin/ifconfig eth1 | awk '/inet / { print $2 }' | sed 's/addr://')
-    sed -i "s/^${IPADDR}.*//" $HOST_CONFIG
-    echo ${IPADDR} ${HOST_NAME} >> $HOST_CONFIG           # Just to quiet down some error messages
-    touch /var/provision/network
+    sed -i "s/^${IPADDR}.*//" /etc/hosts
+    echo ${IPADDR} ${HOST_NAME} >> /etc/hosts           # Just to quiet down some error messages
+    touch /var/provision/config-network
 }
 
 main() {
@@ -50,7 +49,7 @@ main() {
     echo -n "==> " >> $PROVISION_LOG 2>&1
     do_update
     echo -n "==> " >> $PROVISION_LOG 2>&1
-    do_network
+    do_config_network
     echo -n "==> " >> $PROVISION_LOG 2>&1
     do_mysql
     updatedb >> $PROVISION_LOG 2>&1
