@@ -51,7 +51,6 @@ main() {
     echo -n "==> " >> $PROVISION_LOG 2>&1
     do_config_network
     echo -n "==> " >> $PROVISION_LOG 2>&1
-    do_mysql
     updatedb >> $PROVISION_LOG 2>&1
     echo "All done"
     echo "==> Project provisioning done at: $(date)" >> $PROVISION_LOG 2>&1
