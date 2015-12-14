@@ -87,12 +87,12 @@ $mysqli->close();
 <div class="container">
   <div class="row">
     <div class="twelve columns">
-        <h1>Vagrant Boilerplate</h1>
+        <h1>Vagrant Box Info </h1>
     </div>
   </div>
  <div class="row">
     <div class="twelve columns">
-        <pre><code><strong>Hostname:</strong> <?php echo gethostname(); ?><br><strong>Hostname long:</strong> <?php echo $_SERVER['HTTP_HOST']; ?><br><strong>Vagrant Box:</strong> <?php echo file_get_contents("/var/provision/version"); ?></code></pre>
+        <pre><code><a href="linfo/" target="_blank">Linfo</a><br><strong>Hostname:</strong> <?php echo gethostname(); ?><br><strong>URL:</strong> http://<?php echo $_SERVER['HTTP_HOST']; ?><br><strong>Vagrant Box:</strong> <?php echo file_get_contents("/var/provision/version"); ?></code></pre>
     </div>
   </div>
 
@@ -108,10 +108,24 @@ $mysqli->close();
     <div class="one-half column">
         <h4>MySQL</h4>
         <pre><code><strong>MySQL Server:</strong> <?php echo $mysql_serverinfo; ?><br><strong>MySQL Client:</strong> <?php echo $mysql_clientinfo; ?></code></pre>
+        <?php
+            $handle = curl_init("http://{$_SERVER['HTTP_HOST']}/phpmyadmin/");
+            curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+
+            /* Get the HTML or whatever is linked in $url. */
+            $response = curl_exec($handle);
+
+            /* Check for 404 (file not found). */
+            $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+            if($httpCode != 404) { ?>
         <h4>phpMyAdmin</h4>
-        <pre><code><?php echo str_replace("Version", "<strong>Version</strong>", exec('dpkg -s phpmyadmin | grep Version')); ?> • <a href="phpmyadmin/" target="_blank">Open phpMyAdmin</a></code></pre>
-        <ul>
-        </ul>
+        <pre><code><?php echo str_replace("Version", "<strong>Version</strong>", exec('dpkg -s phpmyadmin | grep Version')); ?> • <a href="phpmyadmin/" target="_blank">phpMyAdmin</a></code></pre>
+            <?php }
+
+            curl_close($handle);
+        ?>
+        <h4>Adminer</h4>
+        <pre><code><strong>Version</strong>: v4.2.3+php7-fix • <a href="adminer.php" target="_blank">Adminer</a></code></pre>
     </div>
   </div>
 <div class="row">
@@ -123,7 +137,7 @@ $mysqli->close();
     </div>
     <div class="one-half column">
         <h4>PHP</h4>
-        <pre><code><strong>Version:</strong> <?php echo phpversion(); ?> • <a href="info.php" target="_blank">Open phpinfo()</a></code></pre>
+        <pre><code><strong>Version:</strong> <?php echo phpversion(); ?> • <a href="info.php" target="_blank">phpinfo()</a></code></pre>
         <h5>Enabled Extension:</h5>
         <pre><code class="multicolumn-three"><?php echo implode("\n", get_loaded_extensions());?></code></pre>
 
