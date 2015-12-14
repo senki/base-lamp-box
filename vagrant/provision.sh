@@ -39,20 +39,6 @@ do_network() {
     touch /var/provision/network
 }
 
-do_mysql() {
-    if [[ -f "/var/provision/mysql" ]]; then
-        echo "Skipping: MySQL already configured..." | tee -a $PROVISION_LOG
-        return
-    fi
-    echo "Setting up MySQL..." | tee -a $PROVISION_LOG
-    sed -i "s/^\#general_log/general_log/g" /etc/mysql/my.cnf
-    cp /vagrant/vagrant/mysqldatadir.sh /etc/init.d/mysqldatadir.sh
-    chmod +x /etc/init.d/mysqldatadir.sh
-    update-rc.d mysqldatadir.sh defaults  >> $PROVISION_LOG 2>&1
-    /etc/init.d/mysqldatadir.sh start >> $PROVISION_LOG 2>&1
-    touch /var/provision/mysql
-}
-
 main() {
     if [[ ! -f $PROVISION_LOG ]]; then
         touch $PROVISION_LOG

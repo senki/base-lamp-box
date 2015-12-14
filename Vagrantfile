@@ -14,7 +14,7 @@ def local_cache(box_name)
 end
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "senki/precise64"
+    config.vm.box = "senki/precise"
     config.vm.hostname = "boilerplate.local"
     config.vm.network "private_network", ip:"192.168.33.13"
     config.vm.provision "shell", path: "vagrant/provision.sh"
