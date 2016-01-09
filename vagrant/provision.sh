@@ -23,6 +23,7 @@ do_update() {
     apt-get -qy update >> $PROVISION_LOG 2>&1
     apt-get -qy upgrade >> $PROVISION_LOG 2>&1
     apt-get -qy autoremove >> $PROVISION_LOG 2>&1
+    apt-get -qy autoclean >> $PROVISION_LOG 2>&1
     touch /var/provision/update
 }
 
