@@ -4,14 +4,14 @@
 #
 # The MIT License (MIT)
 
-# To re-run full provisioning, delete /var/provision/* files and run
+# To re-run full provisioning, delete `/var/log/project-provision.log` file and run
 #  $ vagrant provision
 # From the host machine
 
 set -e
 
+HOSTNAME="boilerplate.local"
 NOW=$(date +"%Y-%m-%d-%H-%M-%S")
-HOST_NAME="boilerplate.local"
 PROVISION_LOG="/var/log/project-provision.log"
 
 do_update() {
@@ -35,7 +35,7 @@ do_config_network() {
     echo "Configuring hostname..."  | tee -a $PROVISION_LOG
     IPADDR=$(/sbin/ifconfig eth1 | awk '/inet / { print $2 }' | sed 's/addr://')
     sed -i "s/^${IPADDR}.*//" /etc/hosts
-    echo ${IPADDR} ${HOST_NAME} >> /etc/hosts           # Just to quiet down some error messages
+    echo ${IPADDR} ${HOSTNAME} >> /etc/hosts           # Just to quiet down some error messages
     touch /var/provision/config-network
 }
 
@@ -57,7 +57,7 @@ main() {
     find /vagrant/vagrant/log -type f \( ! -iname "*.gitignore" \) -mtime +7 -delete
     echo "All done"
     echo "==> Project provisioning done at: $(date)" >> $PROVISION_LOG 2>&1
-    cp $PROVISION_LOG /vagrant/vagrant/log/$HOST_NAME-$NOW.log
+    cp $PROVISION_LOG /vagrant/vagrant/log/$HOSTNAME-$NOW.log
 }
 
 # Script start here

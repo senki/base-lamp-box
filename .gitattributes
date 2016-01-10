@@ -1,4 +1,0 @@
-/.gitattributes         merge=ours
-/.gitignore             merge=ours
-/README.md              merge=ours
-/vagrant/test           merge=ours
