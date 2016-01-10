@@ -1,57 +1,29 @@
-## vagrant-boilerplate
+# Base Vagrant Box
 
+Ubuntu LAMP vagrant Box with phpMyAdmin.  
+Tailored for my needs.
+
+> Please aware that, the `senki/precise` box not available online (yet).  
+> But you can generate yourself with [senki/vagrant-boxes](https://github.com/senki/vagrant-boxes).
+
+## Features
+
+- Inherited features from [senki/vagrant-boxes](https://github.com/senki/vagrant-boxes)
+- Private network ip: `192.168.33.13`
+- Backup `/var/lib/mysql/` dir on shutdown to `vagrant/db/mysql-$NOW.tar.gz`
+- Provision logs:
+  - guest: `/var/log/project-provision.log`
+  - host: `vagrant/log/$HOST_NAME-$NOW.log`
+- `provision.sh` feature: remove old (more than 7 days) logs and db backup files
 
 ## Install
 
-**Please never clone this package, unless you are willing to developing it!**  
-
-This repository intended to use as a `git remote`. Before set this, you need to configure your git globally. This is needed, otherwise your essential files overwritten whit this package.
-
-### Prepare
-
-#### Configure merge driver
-
-Set `merge` to always use your files:   
 ```sh
-$ git config --global merge.ours.name "Keep ours merge"
-$ git config --global merge.ours.driver true
+$ git clone --depth=1 https://senki@github.com/senki/base-vagrant-box.git
 ```
-
-This repository contains a `.gitattributes` file for work with `merge.ours` git config. 
-
-For further documentation for this, see: http://stackoverflow.com/a/930495
-
-#### Initialize your project
-
-Make sure your `README.md` file are in your repository:  
-```sh
-$ cd /path/to/your/project/
-$ touch README.md
-$ git init
-$ git add --all
-$ git commit -m 'initial commit'
-```
-
-### Include vagrant-boilerplate
-
-Set this repository as git remote & pull files:  
-```sh
-$ git remote add -t master -m master --no-tags vagrant-boilerplate https://senki@bitbucket.org/senki/vagrant-boilerplate.git
-$ git fetch vagrant-boilerplate
-$ git pull vagrant-boilerplate master
-```
-
-### Post install
-
-After pull from remote, you need to edit the `Vagrantfile`, file.  
-
-## Creator
-
-**Csaba Maulis**
-
-- <http://twitter.com/_senki>
-- <http://bitbucket.com/senki>
+For customize, edit the `Vagrantfile` and the `vagrant/provision.sh` files.  
+Especially the `hostname` and `synced_folder` settings.
 
 ## Copyright and license
 
-Code and documentation copyright 2014 Csaba Maulis. Released under [the MIT license](LICENSE).
+Code and documentation Copyright 2015 Csaba Maulis. Released under [the MIT license](LICENSE).
