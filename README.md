@@ -19,7 +19,7 @@ Tailored for my needs.
 ## Install
 
 ```sh
-$ git clone --depth=1 https://senki@github.com/senki/base-vagrant-box.git
+$ git clone --depth=1 https://github.com/senki/base-vagrant-box.git
 ```
 For customize, edit the `Vagrantfile` and the `vagrant/provision.sh` files.  
 Especially the `hostname` and `synced_folder` settings.
