@@ -1,6 +1,6 @@
 # Base Vagrant Box
 
-Ubuntu LAMP vagrant Box with phpMyAdmin.  
+Ubuntu LAMP vagrant Box.  
 Tailored for my needs.
 
 > Please aware that, the `senki/precise` box not available online (yet).  
