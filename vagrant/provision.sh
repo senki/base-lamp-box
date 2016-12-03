@@ -15,8 +15,8 @@ NOW=$(date +"%Y-%m-%d-%H-%M-%S")
 PROVISION_LOG="/var/log/project-provision.log"
 
 do_update() {
-    if [[ -f "/var/provision/update" ]] && [[ `stat --format=%Y /var/provision/update` -ge $(( `date +%s` - (60*60*24) )) ]]; then
-        echo "Skipping: System already updated within a day" | tee -a $PROVISION_LOG
+    if [[ -f "/var/provision/update" ]] && [[ `stat --format=%Y /var/provision/update` -ge $(( `date +%s` - (7*60*60*24) )) ]]; then
+        echo "Skipping: System already updated within a week" | tee -a $PROVISION_LOG
         return
     fi
     echo "Updating System..."  | tee -a $PROVISION_LOG
