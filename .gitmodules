@@ -1,0 +1,3 @@
+[submodule "vagrant/test/linfo"]
+	path = vagrant/test/linfo
+	url = https://github.com/jrgp/linfo.git
