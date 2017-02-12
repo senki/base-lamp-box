@@ -14,13 +14,13 @@ def local_cache(box_name)
 end
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "senki/precise"
+    config.vm.box = "senki/trusty"
     config.vm.hostname = "boilerplate.local"
     config.vm.network "private_network", ip:"192.168.33.13"
     config.vm.provision "shell", path: "vagrant/provision.sh"
     cache_dir = local_cache("ubuntu/precise64")
     config.vm.synced_folder cache_dir, "/var/cache/apt/archives/"
-    config.vm.synced_folder "vagrant/test", "/var/www",
+    config.vm.synced_folder "vagrant/test", "/var/www/html",
         id: "www-data",
         owner: "www-data",
         group: "www-data",
